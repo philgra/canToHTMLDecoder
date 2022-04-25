@@ -1,6 +1,8 @@
 /*
-   ToDo
- 
+  Arduinocode zur Darstellung von CAN-Nachrichten auf einer HTML-Seite mit einem ESP8266.
+  Von philgra 2022
+  https://github.com/philgra/canToHTMLDecoder
+
 */
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
@@ -9,11 +11,12 @@
 #include <SPI.h>
 #include <DNSServer.h>
 #include "credentials.h"
-
 #include "htmlCode.h"
 
-#define DEBUG
-//#define GEN_AP
+//#define DEBUG
+
+//Hier kann zwischen Generierung eines AP oder Verbindung mit einem bestehenden WLAN umgeschaltet werden
+#define GEN_AP
 
 
 #define UPDATE_DELAY_MS 1000
@@ -84,7 +87,7 @@ void loop(void) {
   g_numbOfIdsReceived = 0;
   g_resetRequested = false;
 
-  
+
   while (!g_resetRequested)
   {
     if (!digitalRead(CAN0_INT))
@@ -198,7 +201,7 @@ void loop(void) {
 
     if ((millis() - lastWebHandling ) > UPDATE_DELAY_MS)
     {
-     //Web Handling
+      //Web Handling
 #ifdef DEBUG
       Serial.print(messagesToString(incomingCanMessages, g_numbOfIdsReceived));
 #endif
