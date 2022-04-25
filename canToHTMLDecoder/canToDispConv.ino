@@ -1,4 +1,7 @@
-
+/*
+   Diese Funktion wandelt die Messwerte des Fahrzeugs in einen String um.
+   Dieser ist für die HTML Ausgabe gedacht.
+*/
 String carDataToHTMLString(carData input)
 {
   String buff = "<br/><span style=\"font-size:20px\">";

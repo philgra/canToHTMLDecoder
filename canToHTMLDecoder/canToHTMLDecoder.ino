@@ -25,15 +25,13 @@
 MCP_CAN CAN0(15);   // CS in pin 15
 
 
-// Replace with your network credentials
-
 ESP8266WebServer server(80); //instantiate server at port 80 (http port)
 
 // DNS server
 const byte DNS_PORT = 53;
 DNSServer dnsServer;
 
-/* Soft AP network parameters */
+//Soft AP network parameters
 IPAddress apIP(172, 20, 0, 1);
 IPAddress netMsk(255, 255, 255, 0);
 
@@ -124,7 +122,6 @@ void loop(void) {
 
       //Wenn CAN-ID = 0x7e8 (ECU) und SID = 41 (Antwort auf Messwertabfrage)
 
-      //if (((rxId == 0x7e8) || (rxId == 0x7ec)) && (rxBuf[1] == 0x41))
       if (((rxId == 0x7e8)) && (rxBuf[1] == 0x41))
       {
         //PID filtern
@@ -201,10 +198,7 @@ void loop(void) {
 
     if ((millis() - lastWebHandling ) > UPDATE_DELAY_MS)
     {
-
-      //Braucht ca. 90ms...
-
-      //Web Handling
+     //Web Handling
 #ifdef DEBUG
       Serial.print(messagesToString(incomingCanMessages, g_numbOfIdsReceived));
 #endif

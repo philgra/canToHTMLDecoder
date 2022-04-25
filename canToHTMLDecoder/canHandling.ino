@@ -1,4 +1,6 @@
-
+/*
+ * Diese Funktion initialisiert den MCP2515
+ */
 
 void initCan()
 { // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
@@ -12,12 +14,15 @@ void initCan()
   pinMode(CAN0_INT, INPUT);                            // Configuring pin for /INT input
 }
 
-void sendRequestToCar(char number)
+
+/*
+ * Diese senden einen OBD on CAN Request für den übergebenen PID
+ */
+
+void sendRequestToCar(char pid)
 {
-
-  byte dataToSend[8] = {0x02, 0x01, number, 0x00, 0x00, 0x00, 0x00, 0x00};
-  // send data:  ID = 0x100, Standard CAN Frame, Data length = 8 bytes, 'data' = array of data bytes to send
-
+  
+  byte dataToSend[8] = {0x02, 0x01, pid, 0x00, 0x00, 0x00, 0x00, 0x00};
   byte sndStat = CAN0.sendMsgBuf(0x7df, 0, 8, dataToSend);
   Serial.println("SndStat: " + String(sndStat == CAN_OK));
 
